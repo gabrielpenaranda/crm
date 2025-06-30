@@ -1,0 +1,114 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ titulo }}
+{% endblock title %}
+
+{% block styles %}
+{{ block.super }}
+<link href="{% static 'css/jquery-ui.min.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1">
+          <br>
+          <div class="card">
+            <div class="card-title bg-light">
+              <h5 class="text-left m-4">{{ titulo_pagina  }}</h5>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.fecha.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.fecha.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.fecha }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.tipogestiones.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.tipogestiones.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.tipogestiones }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.terceros.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.terceros.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.terceros }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.descripcion.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.descripcion.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.descripcion }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.resultados.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.resultados.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.resultados }}
+                      </div>
+                  </div>
+                </div>
+
+                <div class="card-footer">
+                  <div class="row m-0 p-0 button-group">
+                    <div class="col-sm-3 offset-sm-9">
+                      <br>
+                      <button type="submit" class="btn btn-outline-success fs-7">Guardar</button>
+                      <a href="{% url 'crm:gestion-index' %}"><button type="button" class="btn btn-outline-danger fs-7">Cancelar</button></a>
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script type="text/javascript">
+    $( function() {
+        $( "#fecha" ).datepicker({
+            minDate: -5,
+            maxDate: +0,
+            dateFormat: 'dd-mm-yy',
+            dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
+            monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Deciembre" ]
+         });
+    } );
+    </script>
+{% endblock scripts %}

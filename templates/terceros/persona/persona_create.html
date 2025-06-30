@@ -1,0 +1,115 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1">
+          <br>
+          <div class="card">
+            <div class="card-title bg-light">
+              <h5 class="text-left m-4">{{ titulo_pagina  }}</h5>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger " >
+                      {{ form.nombre.errors }}
+                    </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.nombre.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.nombre }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger " >
+                      {{ form.apellido.errors }}
+                    </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.apellido.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.apellido }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger " >
+                      {{ form.cargo.errors }}
+                    </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.cargo.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.cargo }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger " >
+                      {{ form.telefono_oficina.errors }}
+                    </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.telefono_oficina.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.telefono_oficina }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger " >
+                      {{ form.telefono_celular.errors }}
+                    </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.telefono_celular.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.telefono_celular }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger " >
+                      {{ form.tipopersona.errors }}
+                    </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.tipopersona.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.tipopersona }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger " >
+                      {{ form.tercero.errors }}
+                    </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.tercero.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.tercero }}
+                      </div>
+                  </div>
+                </div>
+
+                <div class="card-footer">
+                  <div class="row m-0 p-0 button-group">
+                    <div class="col-sm-3 offset-sm-9">
+                      <br>
+                      <button type="submit" class="btn btn-outline-success fs-7">Guardar</button>
+                      <a href="{% url 'terceros:persona-index' %}"><button type="button" class="btn btn-outline-danger fs-7">Cancelar</button></a>
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

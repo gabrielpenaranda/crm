@@ -1,0 +1,19 @@
+body {
+    padding-top: 60px !important;
+}
+
+.logo-principal {
+    padding-top: 160px !important;
+}
+
+.fs-7 {
+    font-size: 0.8rem !important;
+}
+
+.nav-bg-color {
+    background-color: #ffffff;
+}
+
+.card-bg-lightgray {
+    background-color: #f7f7f7;
+}

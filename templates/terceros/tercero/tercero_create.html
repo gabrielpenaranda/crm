@@ -1,0 +1,270 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<!-- Scrollable modal -->
+<div class="modal-dialog modal-dialog-scrollable">
+  
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1">
+          <br>
+          <div class="card">
+            <div class="card-title bg-light">
+              <div class="row">
+                <div class="col-9 m-3">
+                  <h5 class="text-left m-4">{{ titulo_pagina  }}</h5>
+                </div>
+                <div class="col-2 m-3">
+                  <a href="{% url 'terceros:tercero-index' %}"><button type="button" class="btn btn-danger fs-7 m-4">Cancelar</button></a>
+                </div>
+              </div>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+
+                  <div class="row">
+
+                    <div class="col-xs-12 col-md-6 form-group">
+                      <div class="text-danger fs-7" >
+                        {{ form.tipo_empresa.errors }}
+                      </div>
+                        <div class="fs-7">
+                          {{ form.tipo_empresa.label }}
+                        </div>
+                        <div class="mt-2">
+                          {{ form.tipo_empresa }}
+                        </div>
+                    </div>
+  
+                    <div class="col-xs-12 col-md-6 form-group">
+                      <div class="text-danger fs-7" >
+                        {{ form.tipo.errors }}
+                      </div>
+                        <div class="fs-7">
+                          {{ form.tipo.label }}
+                        </div>
+                        <div class="mt-2">
+                          {{ form.tipo }}
+                        </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xs-12 col-md-6 form-group">
+                      <div class="text-danger fs-7" >
+                        {{ form.nombre.errors }}
+                      </div>
+                        <div class="fs-7">
+                          {{ form.nombre.label }}
+                        </div>
+                        <div class="mt-2">
+                          {{ form.nombre }}
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 form-group">
+                      <div class="text-danger fs-7" >
+                        {{ form.nombre_juridico.errors }}
+                      </div>
+                        <div class="fs-7">
+                          {{ form.nombre_juridico.label }}
+                        </div>
+                        <div class="mt-2">
+                          {{ form.nombre_juridico }}
+                        </div>
+                    </div>
+
+                  </div>
+
+
+                  
+
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger fs-7" >
+                      {{ form.direccion.errors }}
+                    </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.direccion.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.direccion }}
+                      </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger fs-7" >
+                      {{ form.ciudad.errors }}
+                    </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.ciudad.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.ciudad }}
+                      </div>
+                  </div>
+                
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger fs-7" >
+                      {{ form.rif.errors }}
+                    </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.rif.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.rif }}
+                      </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger fs-7" >
+                      {{ form.nit.errors }}
+                    </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.nit.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.nit }}
+                      </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger fs-7" >
+                      {{ form.telefono.errors }}
+                    </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.telefono.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.telefono }}
+                      </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger fs-7" >
+                      {{ form.email.errors }}
+                    </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.email.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.email }}
+                      </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger fs-7" >
+                      {{ form.web.errors }}
+                    </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.web.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.web }}
+                      </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-sm-12 text-danger fs-7" >
+                      {{ form.tipocapital.errors }}
+                    </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.tipocapital.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.tipocapital }}
+                      </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-sm-12 text-danger fs-7" >
+                    {{ form.zona.errors }}
+                  </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.zona.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.zona }}
+                      </div>
+                </div>
+                {% comment %} <div class="row form-group">
+                  <div class="col-sm-12 text-danger " >
+                    {{ form.ramo.errors }}
+                  </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.ramo.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.ramo }}
+                      </div>
+                </div> {% endcomment %}
+                <div class="row form-group">
+                  <div class="col-sm-12 text-danger fs-7" >
+                    {{ form.descripcion_actividad.errors }}
+                  </div>
+                  <div class="col-sm-12 fs-7">
+                    {{ form.descripcion_actividad.label }}
+                  </div>
+                  <div class="col-sm-12 mt-2">
+                    {{ form.descripcion_actividad }}
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-sm-12 text-danger fs-7" >
+                    {{ form.tamano_empresa.errors }}
+                  </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.tamano_empresa.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.tamano_empresa }}
+                      </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-sm-12 text-danger fs-7" >
+                    {{ form.tipo_empresa.errors }}
+                  </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.tipo_empresa.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.tipo_empresa }}
+                      </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-sm-12 text-danger fs-7" >
+                    {{ form.vendedor.errors }}
+                  </div>
+                      <div class="col-sm-12 fs-7">
+                        {{ form.vendedor.label }}
+                      </div>
+                      <div class="col-sm-12 mt-2">
+                        {{ form.vendedor }}
+                      </div>
+                </div>
+                
+              </div>
+
+                <div class="card-footer">
+                  <div class="row m-0 p-0 button-group">
+                    <div class="col-sm-3 offset-sm-9">
+                      <br>
+                      <button type="submit" class="btn btn-success fs-7">Guardar</button>
+                      <a href="{% url 'terceros:tercero-index' %}"><button type="button" class="btn btn-danger fs-7">Cancelar</button></a>
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,108 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1">
+          <br>
+          <div class="card">
+            <div class="card-title bg-light">
+              <h5 class="text-left m-4">{{ titulo_pagina  }}</h5>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Nombre Empresa
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.nombre_empresa }}</h5>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Teléfono(s) empresa
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.telefono_empresa }}</h5>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Nombre Persona
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.nombre_persona }}</h5>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Teléfono(s) persona
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.telefono_persona }}</h5>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Email
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.email }}</h5>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Dirección
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.direccion }}</h5>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Ciudad
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.ciudad.nombre }}</h5>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Tipo de oportunidad
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.tipo_oportunidad }}</h5>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Gestión
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.gestion }}</h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="row button-group">
+                    <div class="col-sm-3 offset-sm-8">
+                      <br>
+                      <button type="submit" class="btn btn-sm btn-outline-success">Confirmar</button>
+                      <a href="{% url 'crm:captacion-index' %}"><button type="button" class="btn btn-sm btn-outline-danger">Cancelar</button></a>
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

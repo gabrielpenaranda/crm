@@ -1,0 +1,46 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}{{ titulo }}{% endblock title %}
+
+{% block nav %}
+{% include "layouts/nav.html" %}
+{% endblock nav %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+        <div class="col-sm-6 offset-sm-3">
+          <div class="{{ class_card }}">
+            <div class="{{ class_title }}">
+              <h4 class="text-left m-4">{{ titulo_pagina  }}</h4>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                  <div class="col-sm-12 text-center">
+                      <h5>
+                          {{ objeto }}
+                      </h5>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 tex-center">
+                    <h6 class="text-center">
+                        {{ mensaje }}
+                    </h6>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                  <div class="col-sm-6 offset-sm-3 text-center">
+                      <a href="{% url ruta %}" class="btn btn-danger">Regresar</a>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

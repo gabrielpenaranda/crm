@@ -1,0 +1,145 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-8 offset-md-2">
+          <div class="card">
+            <div class="card-title bg-light">
+              <div class="card-title bg-light">
+                <div class="row">
+                  <div class="col-8 m-3 ms-4">
+                    <h4 class="text-left">Persona</h4>
+                  </div>
+                  <div class="col-2 m-3">
+                    <a class="btn btn-primary btn-sm fs-7" href="{% url 'terceros:persona-create' %}">Nuevo</a>
+                  </div>
+                </div>
+                <div class="container">
+                  <form method="GET" action="{% url 'terceros:tercero-index' %}">
+                    
+                    <div class="row">
+    
+                      <input type="hidden" name="page" value="1">
+    
+                      <div class="col-12 mb-2 mt-2">
+                        <input type="text" class="form-control" name="kword" id="kword" placeholder="Buscar..." />
+                      </div>
+    
+                      <div class="row">
+                        <div class="col-4">
+                          <label for="orderby" class="form-label fs-7">Ordenar por:</label>
+                          <select name="orderby" id="orderby" class="form-select fs-7">
+                            <option value="persona">Persona</option>
+                            <option value="tercero">Tercero</option>
+                            <option value="tipopersona">Tipo</option>
+                            <option value="cargo">Cargo</option>
+                          </select>
+                        </div>
+                        <div class="col-4">
+                          <label for="ascdesc" class="form-label fs-7">Orden:</label>
+                          <select name="ascdesc" id="ascdesc" class="form-select fs-7">
+                            <option value="asc">Ascendente</option>
+                            <option value="desc">Descendente</option>
+                          </select>
+                        </div>
+                        {% comment %}
+                        <div class="col-2">
+                          <label for="page_size" class="form-label fs-7">Por página:</label>
+                          <select name="page_size" id="page_size" class="form-select fs-7">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                          </select>
+                        </div>
+                        {% endcomment %}
+                        <div class="col-2  mt-4">
+                          <button type="submit" class="btn btn-secondary btn-sm fs-7">Buscar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+
+            <div class="card-body">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col" class="text-center">Persona</th>
+                          <th scope="col" class="text-center">Tipo</th>
+                          <th scope="col" class="text-center">Tercero</th>
+                          <th scope="col" class="text-center">Cargo</th>
+                          <th scope="col" class="text-center">Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% if personas %}
+                          {% for persona in personas %}
+                          <tr>
+                              <td class="fs-7">
+                                  {{ persona.nombre }} {{ persona.apellido }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ persona.tipopersona.descripcion }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ persona.tercero.nombre }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ persona.cargo }}
+                              </td>
+                              <td class="text-center">
+                                  <a class="btn btn-outline-primary btn-sm fs-7" href="{% url 'terceros:persona-edit' persona.id %}"><i class="fas fa-edit"></i></a>
+                                  <a class="btn btn-outline-danger btn-sm confirmation fs-7"  onclick="" href="{% url 'terceros:persona-delete' persona.id %}"><i class="fas fa-trash"></i></a>
+                              </td>
+                          </tr>
+                          {% endfor %}
+                      {% endif %}
+                  </tbody>
+              </table>
+            </div>
+
+          <div class="card-footer">
+            <nav aria-label="Page navigation example">
+            {% if is_paginated %}
+            <ul class="pagination mb-0">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><span aria-hidden="true">&laquo;</span></a></li>
+            {% comment %} {% else %}
+                <li class="page-item"><span>&laquo;</span></li> {% endcomment %}
+            {% endif %}
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="page-item"><span class="page-link text-danger">{{ i }} <span class="sr-only"></span></span></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><span aria-hidden="true">&raquo;</span></a></li>
+           {% comment %}  {% else %}
+                <li class="page-item"><span>&raquo;</span></li> {% endcomment %}
+            {% endif %}
+            </ul>
+            {% endif %}
+            </nav>
+          </div>
+
+        </div>
+        {% comment %}
+    </div>
+  </div>
+  {% endcomment %}
+</div>
+
+{% endblock content %}

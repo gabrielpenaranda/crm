@@ -1,0 +1,77 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1">
+          <br>
+          <div class="card">
+            <div class="card-title bg-light">
+              <h5 class="text-left m-4">{{ titulo_pagina  }}</h5>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Oportunidad
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.oportunidad }}</h5>
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.descripcion }}</h5>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                      Notas
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.notas }}</h5>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                      Status
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.status }}</h5>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                      Tipo de Oportunidad
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.tipooportunidades.oportunidad }}</h5>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                      Tercero
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.terceros.oportunidad_juridico }}</h5>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                      Etapa
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h5>{{ objeto.etapas.oportunidad }} ({{ objeto.etapas.porcentaje }}%)</h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="row button-group">
+                    <div class="col-sm-3 offset-sm-8">
+                      <br>
+                      <button type="submit" class="btn btn-sm btn-outline-success">Confirmar</button>
+                      <a href="{% url 'crm:oportunidad-index' %}"><button type="button" class="btn btn-sm btn-outline-danger">Cancelar</button></a>
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

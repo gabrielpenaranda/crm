@@ -1,0 +1,116 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1">
+          <br>
+          <div class="card">
+            <div class="card-title bg-light">
+              <h5 class="text-left m-4">{{ titulo_pagina  }}</h5>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.terceros.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.terceros.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.terceros }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.base_instalada.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.base_instalada.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.base_instalada }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.erps.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.erps.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.erps }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.dbms.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.dbms.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.dbms }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.osystems.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.osystems.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.osystems }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.num_usuarios.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.num_usuarios.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.num_usuarios }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.notas.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.notas.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.notas }}
+                      </div>
+                  </div>
+                  
+                </div>
+
+                <div class="card-footer">
+                  <div class="row m-0 p-0 button-group">
+                    <div class="col-sm-3 offset-sm-9">
+                      <br>
+                      <button type="submit" class="btn btn-outline-success fs-7">Guardar</button>
+                      <a href="{% url 'crm:ficha-index' %}"><button type="button" class="btn btn-outline-danger fs-7">Cancelar</button></a>
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

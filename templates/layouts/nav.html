@@ -1,0 +1,81 @@
+{% load static %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'core:core-index' %}"><img class="img-fluid mx-auto" src="{% static 'img/triqueta-trinity2.png' %}" alt="Datacentro" width="40"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end mt-4 me-3" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        {% comment %} <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li> {% endcomment %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Configuración
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item fs-7" href="{% url 'base:ciudad-index' %}">Ciudad</a></li>
+            <li><a class="dropdown-item fs-7" href="{% url 'base:estado-index' %}">Estado</a></li>
+            <li><a class="dropdown-item fs-7 text" href="{% url 'base:pais-index' %}">País</a></li>
+            <li><hr class="dropdown-divider"></li>
+            {% comment %} <li><a class="dropdown-item fs-7" href="{% url 'base:sector-index' %}">Sectores</a></li>
+            <li><a class="dropdown-item fs-7" href="{% url 'base:ramo-index' %}">Ramos</a></li> {% endcomment %}
+            {% comment %} <li><a class="dropdown-item fs-7" href="{% url 'base:actividad-index' %}">Actividades</a></li> {% endcomment %}
+            <li><a class="dropdown-item fs-7" href="{% url 'base:tipoempresa-index' %}">Tipo de Empresa</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item fs-7" href="{% url 'base:vendedor-index' %}">Vendedor</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item fs-7" href="{% url 'terceros:tipopersona-index' %}">Tipo de Persona</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item fs-7" href="{% url 'crm:tipogestion-index' %}">Tipo de Gestión</a></li>
+            <li><a class="dropdown-item fs-7 text" href="{% url 'crm:tipooportunidad-index' %}">Tipo de Oportunidad</a></li>
+            <li><a class="dropdown-item fs-7 text" href="{% url 'crm:etapa-index' %}">Etapa</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Terceros
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item fs-7" href="{% url 'terceros:tercero-index' %}">Terceros</a></li>
+            <li><a class="dropdown-item fs-7" href="{% url 'terceros:persona-index' %}">Personas</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Gestión
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item fs-7" href="{% url 'crm:captacion-index' %}">Captación</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item fs-7" href="{% url 'crm:oportunidad-index' %}">Oportunidad</a></li>
+            <li><a class="dropdown-item fs-7" href="{% url 'crm:gestion-index' %}">Gestión</a></li>
+            <li><a class="dropdown-item fs-7" href="{% url 'crm:documento-index' %}">Documento</a></li>
+            <li><a class="dropdown-item fs-7" href="{% url 'crm:ficha-index' %}">Ficha de Tercero</a></li>
+          </ul>
+        </li>
+        {% if request.user.is_authenticated %}
+        <div class="text-end">
+          <a href="{% url 'core:core-index' %}"><button type="button" class="btn-sm btn-outline-primary">Salir</button></a>
+        </div>
+      {% endif %}
+
+      </ul>
+     
+      
+
+    </div>
+  </div>
+</nav>
+
+
+

@@ -1,0 +1,97 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-8 offset-md-2">
+          <div class="card">
+            <div class="card-title bg-light">
+              <h4 class="text-left m-4 mb-0">Oportunidad</h4>
+              <div class="container">
+              <div class="row">
+                <div class="col-2 offset-10 mb-2">
+                  <a class="btn btn-primary btn-sm fs-7" href="{% url 'crm:oportunidad-create' %}">Agregar</a>
+                </div>
+              </div>
+              </div>
+          </div>
+
+            <div class="card-body">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col" class="text-center">Descripción</th>
+                          <th scope="col" class="text-center">Tipo</th>
+                          <th scope="col" class="text-center">Tercero</th>
+                          <th scope="col" class="text-center">Etapa</th>
+                          <th scope="col" class="text-center">Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% if oportunidades %}
+                          {% for oportunidad in oportunidades %}
+                          <tr>
+                              <td class="fs-7">
+                                  {{ oportunidad.oportunidad }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ oportunidad.tipooportunidades.tipo_oportunidad }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ oportunidad.terceros.nombre_juridico }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ oportunidad.etapas.etapa }} ({{ oportunidad.etapas.porcentaje }}%)
+                              </td>
+                              <td class="text-center">
+                                  <a class="btn btn-outline-primary btn-sm fs-7" href="{% url 'crm:oportunidad-edit' oportunidad.id %}"><i class="fas fa-edit"></i></a>
+                                  <a class="btn btn-outline-danger btn-sm confirmation fs-7"  onclick="" href="{% url 'crm:oportunidad-delete' oportunidad.id %}"><i class="fas fa-trash"></i></a>
+                              </td>
+                          </tr>
+                          {% endfor %}
+                      {% endif %}
+                  </tbody>
+              </table>
+            </div>
+
+          <div class="card-footer">
+            <nav aria-label="Page navigation example">
+            {% if is_paginated %}
+            <ul class="pagination mb-0">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><span aria-hidden="true">&laquo;</span></a></li>
+            {% comment %} {% else %}
+                <li class="page-item"><span>&laquo;</span></li> {% endcomment %}
+            {% endif %}
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="page-item"><span class="page-link text-danger">{{ i }} <span class="sr-only"></span></span></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><span aria-hidden="true">&raquo;</span></a></li>
+           {% comment %}  {% else %}
+                <li class="page-item"><span>&raquo;</span></li> {% endcomment %}
+            {% endif %}
+            </ul>
+            {% endif %}
+            </nav>
+          </div>
+
+        </div>
+        {% comment %}
+    </div>
+  </div>
+  {% endcomment %}
+</div>
+
+{% endblock content %}

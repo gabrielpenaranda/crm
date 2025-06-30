@@ -1,0 +1,105 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1">
+          <br>
+          <div class="card">
+            <div class="card-title bg-light">
+              <h5 class="text-left m-4">{{ titulo_pagina  }}</h5>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.tipooportunidades.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.tipooportunidades.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.tipooportunidades }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.terceros.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.terceros.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.terceros }}
+                      </div>
+                  </div>
+                  
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.oportunidad.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.oportunidad.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.oportunidad }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.etapas.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.etapas.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.etapas }}
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.notas.errors }}
+                      </div>
+                      <div class="col-sm-12 col-md-3">
+                        {{ form.notas.label }}
+                      </div>
+                      <div class="col-sm-12 offset-md-1 col-md-8">
+                        {{ form.notas }}
+                      </div>
+                  </div>
+                  <div class="row form-check">
+                      <div class="col-sm-12 text-danger " >
+                        {{ form.cerrada.errors }}
+                      </div>
+                      <div class="col-sm-12">
+                        {{ form.cerrada }}
+                        <label for="{{ form.cerrada.id }}" class="form-check-label">{{ form.cerrada.label }}</label>
+
+                      </div>
+                  </div>
+                  
+                </div>
+
+                <div class="card-footer">
+                  <div class="row m-0 p-0 button-group">
+                    <div class="col-sm-3 offset-sm-9">
+                      <br>
+                      <button type="submit" class="btn btn-outline-success fs-7">Guardar</button>
+                      <a href="{% url 'crm:oportunidad-index' %}"><button type="button" class="btn btn-outline-danger fs-7">Cancelar</button></a>
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

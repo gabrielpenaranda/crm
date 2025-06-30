@@ -1,0 +1,113 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+          <div class="card">
+            <div class="card-title bg-light">
+              <h4 class="text-left m-4 mb-0">Captaciones</h4>
+              <div class="container">
+              <div class="row">
+                <div class="col-2 offset-10 mb-2">
+                  <a class="btn btn-primary btn-sm fs-7" href="{% url 'crm:captacion-create' %}">Agregar</a>
+                </div>
+              </div>
+              </div>
+          </div>
+
+            <div class="card-body">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col" class="text-left">Nombre Empresa</th>
+                          <th scope="col" class="text-left">Teléfono(s) empresa</th>
+                          <th scope="col" class="text-left">Nombre Persona</th>
+                          <th scope="col" class="text-left">Teléfono(s) persona</th>
+                          <th scope="col" class="text-left">Email</th>
+                          <th scope="col" class="text-left">Dirección</th>
+                          <th scope="col" class="text-left">Ciudad</th>
+                          <th scope="col" class="text-left">Tipo Oportunidad</th>
+                          <th scope="col" class="text-center">Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% if captaciones %}
+                          {% for captacion in captaciones %}
+                          <tr>
+                              <td class="fs-7">
+                                  {{ captacion.nombre_empresa }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ captacion.telefono_empresa }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ captacion.nombre_persona }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ captacion.telefono_persona }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ captacion.email  }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ captacion.direccion  }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ captacion.ciudad.nombre  }}
+                              </td>
+                              <td class="fs-7">
+                                  {{ captacion.tipo_oportunidad  }}
+                              </td>
+                              <td class="text-center">
+                                  <a class="btn btn-outline-primary btn-sm fs-7" href="{% url 'crm:captacion-edit' captacion.id %}"><i class="fas fa-edit"></i></a>
+                                  <a class="btn btn-outline-danger btn-sm confirmation fs-7"  onclick="" href="{% url 'crm:captacion-delete' captacion.id %}"><i class="fas fa-trash"></i></a>
+                              </td>
+                          </tr>
+                          {% endfor %}
+                      {% endif %}
+                  </tbody>
+              </table>
+            </div>
+
+          <div class="card-footer">
+            <nav aria-label="Page navigation example">
+            {% if is_paginated %}
+            <ul class="pagination mb-0">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><span aria-hidden="true">&laquo;</span></a></li>
+            {% comment %} {% else %}
+                <li class="page-item"><span>&laquo;</span></li> {% endcomment %}
+            {% endif %}
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="page-item"><span class="page-link text-danger">{{ i }} <span class="sr-only"></span></span></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><span aria-hidden="true">&raquo;</span></a></li>
+           {% comment %}  {% else %}
+                <li class="page-item"><span>&raquo;</span></li> {% endcomment %}
+            {% endif %}
+            </ul>
+            {% endif %}
+            </nav>
+          </div>
+
+        </div>
+        {% comment %}
+    </div>
+  </div>
+  {% endcomment %}
+</div>
+
+{% endblock content %}

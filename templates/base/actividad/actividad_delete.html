@@ -1,0 +1,60 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ titulo }}
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1">
+          <br>
+          <div class="card border-danger">
+            <div class="card-title text-white bg-danger">
+              <h5 class="text-left m-4">{{ titulo_pagina  }}</h5>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Nombre de la actividad
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h>{{ objeto.actividad }}</h>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Ramo
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h>{{ objeto.ramo.actividad }}</h>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-sm-12 col-md-3">
+                      Sector
+                    </div>
+                    <div class="col-sm-12 offset-md-1 col-md-8">
+                      <h>{{ objeto.ramo.sector }}</h>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="row button-group">
+                    <div class="col-sm-3 offset-sm-8">
+                      <br>
+                      <button type="submit" class="btn btn-outline-success">Confirmar</button>
+                      <a href="{% url 'base:actividad-index' %}"><button type="button" class="btn btn-outline-danger">Cancelar</button></a>
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
