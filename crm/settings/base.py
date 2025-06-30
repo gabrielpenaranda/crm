@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-with open("secret.json") as f:
+with open("secrets.json") as f:
     secret = json.loads(f.read())
 
 def get_secret(secret_name, secrets=secret):
@@ -35,7 +35,7 @@ def get_secret(secret_name, secrets=secret):
         return secrets[secret_name]
     except:
         msg = "la variable %s no existe" % secret_name
-        raise ImporperlyConfigured(msg)
+        raise ImproperlyConfigured(msg)
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
