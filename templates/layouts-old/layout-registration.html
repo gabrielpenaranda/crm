@@ -17,9 +17,9 @@
     {% endblock styles %}
 </head>
 <body>
-    {% block nav %}
-        {% include 'layouts/nav-front.html' %}
-    {% endblock nav %}
+    {% comment %} {% block nav %}
+        {% include 'layouts/nav.html' %}
+    {% endblock nav %} {% endcomment %}
     <div id="app">
         {% block content %}{% endblock content %}
     </div>

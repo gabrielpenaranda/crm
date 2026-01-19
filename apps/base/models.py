@@ -1,13 +1,15 @@
 from django.db import models
+from .managers import PaisManager
 
 
 class Pais(models.Model):
     id = models.BigAutoField(primary_key=True)
     pais = models.CharField(
-        verbose_name="Nombre", max_length=50, null=False, blank=False)
-    iso = models.CharField(max_length=2, null=False, blank=False)
+        verbose_name="Nombre", max_length=50, null=False, blank=False, unique=True)
+    iso = models.CharField(max_length=2, null=False, blank=False, unique=True)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+    objects = PaisManager()
 
     class Meta:
         db_table = "paises"
@@ -15,11 +17,11 @@ class Pais(models.Model):
         verbose_name_plural = "Países"
         ordering = ["pais"]
         
-    """ 
+    
     def save(self, force_insert=False, force_update=False):
-        self.pais = self.pais.upper()
+        self.pais = self.pais.capitalize()
         self.iso = self.iso.upper()
-        super(Pais, self).save(force_insert, force_update) """
+        super(Pais, self).save(force_insert, force_update)
 
     def __str__(self):
         return "%s" % (self.pais)

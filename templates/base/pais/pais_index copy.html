@@ -10,7 +10,7 @@
 <div class="col-sm-10 offset-sm-1">                  
   <div class="card shadow mb-4">
       <div class="card-header py-3 d-flex justify-content-between align-items-center">
-          <h3 class="m-0 font-weight-bold text-primary">{{ titulo_pagina }}</h3>
+          <h6 class="m-0 font-weight-bold text-primary">{{ titulo_pagina }}</h6>
           <a href="{% url 'base:pais-create' %}" class="btn btn-primary btn-sm">
               <i class="fas fa-plus"></i> Crear Nuevo País
           </a>
@@ -31,21 +31,11 @@
                           <td>{{ pais.pais }}</td>
                           <td>{{ pais.iso }}</td>
                           <td class="text-center">
-                            <a href="{% url 'base:pais-edit' pais.pk %}" class="btn btn-warning btn-sm" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </a>
+                            <a class="btn btn-warning btn-sm" href="{% url 'base:pais-edit' pais.pk %}"><i class="fas fa-edit"></i></a>
                             <form  id="delete-form-{{pais.pk}}" action="{% url 'base:pais-delete' pais.pk %}" method="post" class="d-inline">
                                 {% csrf_token %}
                                 <button type="button" class="btn btn-danger btn-sm confirmation" data-pk="{{ pais.pk }}"><i class="fas fa-trash"></i></button>
                             </form>
-                            {% comment %} <button type="button" class="btn btn-danger btn-sm btn-delete" data-id="{{ pais.pk }}" title="Eliminar">
-                                <i class="fas fa-trash"></i>
-                            </button> {% endcomment %}
-                            {% comment %} <a class="btn btn-warning btn-sm" href="{% url 'base:pais-edit' pais.pk %}"><i class="fas fa-edit"></i></a>
-                            <form  id="delete-form-{{pais.pk}}" action="{% url 'base:pais-delete' pais.pk %}" method="post" class="d-inline">
-                                {% csrf_token %}
-                                <button type="button" class="btn btn-danger btn-sm confirmation" data-pk="{{ pais.pk }}"><i class="fas fa-trash"></i></button>
-                            </form> {% endcomment %}
                                 {% comment %} <a class="btn btn-outline-danger btn-sm confirmation"  onclick="" href="{% url 'base:pais-delete' pais.pk %}"><i class="fas fa-trash"></i></a> {% endcomment %}
                         </td>
                       </tr>
@@ -59,5 +49,29 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'base/pais/index.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#paisesTable').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json"
+            },
+            "columnDefs": [
+                { 
+                    className: 'text-center', 
+                    targets: [0, 1, 2] 
+                },
+                { 
+                    orderable: true, 
+                    targets: [0, 1] 
+                },
+                { 
+                    searchable: true, 
+                    targets: [0, 1] 
+                }
+            ],
+            "pageLength": 4,
+            "destroy": true
+        });
+    });
+</script>
 {% endblock %}

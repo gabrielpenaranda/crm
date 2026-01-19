@@ -3,7 +3,7 @@ from django.urls import path, include
 from .views import (
     CiudadIndex, CiudadCreate, CiudadEdit, ciudad_delete,
     EstadoIndex, EstadoCreate, EstadoEdit, estado_delete,
-    PaisIndex, PaisCreate, PaisEdit, pais_delete,
+    PaisIndex, PaisCreate, PaisEdit, PaisDelete,
     TipoEmpresaIndex, TipoEmpresaCreate, TipoEmpresaEdit, tipoempresa_delete,
     VendedorIndex, VendedorCreate, VendedorEdit, vendedor_delete,
 )
@@ -25,7 +25,7 @@ urlpatterns = [
     path('pais', PaisIndex.as_view(), name='pais-index'),
     path('pais/create', PaisCreate.as_view(), name='pais-create'),
     path('pais/edit/<int:pk>', PaisEdit.as_view(), name='pais-edit'),
-    path('pais/delete/<int:id>', pais_delete, name='pais-delete'),
+    path('pais/delete/<int:pk>/', PaisDelete.as_view(), name='pais-delete'),
     #
     path('tipo_empresa', TipoEmpresaIndex.as_view(), name='tipoempresa-index'),
     path('tipo_empresa/create', TipoEmpresaCreate.as_view(), name='tipoempresa-create'),

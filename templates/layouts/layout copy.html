@@ -14,13 +14,12 @@
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
         <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'css/index.css' %}"> 
-        {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> {% endcomment %}
+        <link rel="stylesheet" href="{% static "css/index.css" %}">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        {% comment %} <script src="https://unpkg.com/htmx.org@1.9.6"></script> {% endcomment %}
+        <script src="https://unpkg.com/htmx.org@1.9.6"></script>
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-light bg-light">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="{% url 'core:core-index' %}">CRM</a>
             <!-- Sidebar Toggle-->
@@ -52,7 +51,7 @@
 
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
@@ -153,7 +152,7 @@
         <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.all.min.js"></script>
-
+        {% comment %} <script src="{% static "js/index.js" %}"></script> {% endcomment %}
         <script>
             // Configuración global de Toastr
             toastr.options = {
@@ -181,7 +180,30 @@
                 {% endfor %}
             {% endif %}
         </script>
+        {% comment %} <script>
+            $(document).on('click', '.confirmation', function(e) {
+                e.preventDefault();
 
+                const button = $(this);
+                const pk = button.data('pk');  // Obtiene el data-pk
+                const form = $(`#delete-form-${pk}`);
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminarlo!',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Envía el formulario
+                    }
+                });
+            });
+        </script>        {% endcomment %}
         <script>
             document.addEventListener('click', function (e) {
                 // Busca el botón .confirmation más cercano desde el elemento clickeado
@@ -228,7 +250,5 @@
                 });
             });
         </script>
-        
-        {% block extra_js %}{% endblock %}
     </body>
 </html>

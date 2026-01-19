@@ -61,9 +61,10 @@ class EstadoForm(forms.ModelForm):
 class PaisForm(forms.ModelForm):
     class Meta:
         model = Pais
-        fields = ["pais"]
+        fields = ["pais", "iso"]
         labels = {
             'pais': 'Nombre del país',
+            'iso': 'Código ISO',
         }
         widgets = {
             'pais': forms.TextInput(
@@ -71,6 +72,13 @@ class PaisForm(forms.ModelForm):
                     'class': 'form-control form-control-sm',
                     'placeholder': 'Ingrese el nombre del país',
                     'id': 'pais'
+                }
+            ),
+            'iso': forms.TextInput(
+                attrs = {
+                    'class': 'form-control form-control-sm',
+                    'placeholder': 'Ingrese el código ISO del país',
+                    'id': 'iso'
                 }
             )
         }

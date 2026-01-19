@@ -1,0 +1,126 @@
+/* GENERAL */
+body {  
+    background-color: initial;
+    color: initial;
+    font-family: initial; 
+}
+
+/* LOGIN PAGE */
+.login-logo img {
+    display: block;
+    margin: 0 auto;
+    max-width: initial;
+    height: initial;
+    box-shadow: 0px 4px 15px rgba(255,215,0,0.5);
+    border-radius: 15px;
+}
+
+.login-box {
+    background-color: initial;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: 0px 4px 30px rgba(255,215,0,0.2);
+}
+
+/* DISEÑO TABLAS */
+table.table {
+    background-color: initial;
+    color: initial;
+    border-radius: 0;
+    width: 100%;
+    margin-top: 0;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+}
+
+table.table thead {
+    background-color: initial;
+    color: initial;
+    font-weight: initial;
+    text-align: initial;
+}
+
+table.table thead th {
+    border-bottom: none;
+}
+
+/* LINKS */
+a { color: initial; }
+a:hover { color: initial; }
+
+/* ANIMACIONES */
+.nav-sidebar .nav-link {
+    transition: none;
+}
+
+.btn, .form-control {
+    transition: none;
+}
+
+.card, .main-footer, .navbar, .main-sidebar {
+    transition: none; 
+}
+
+.logout-box {
+    background-color: initial;
+    border-radius: 0;
+    padding: 0;
+    width: 100%;
+    max-width: initial;
+    box-shadow: none;
+    margin: 0 auto;
+}
+
+.logout-logo img {
+    display: block;
+    margin: 0 auto;
+    max-width: initial;
+    height: initial;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.logout-title {
+    text-align: initial;
+    color: initial;
+    font-size: initial;
+    margin-bottom: 0;
+}
+
+.logout-message {
+    text-align: initial;
+    color: initial;
+    margin-bottom: 0;
+    font-size: initial;
+}
+
+/* BOTÓN PRINCIPAL */
+.btn-primary {
+    background-color: initial;
+    border-color: initial;
+    color: initial;
+    font-weight: initial;
+    border-radius: 0;
+    width: auto;
+    padding: 0;
+    cursor: initial;
+    transition: none;
+}
+
+.btn-primary:hover {
+    background-color: initial;
+    border-color: initial;
+    color: initial;
+}
+
+/* FOOTER */
+.footer {
+    text-align: initial;
+    margin-top: 0;
+    color: initial;
+    font-size: initial;
+}
+
+.related-widget-wrapper select {
+    background-color: initial;
+    background-clip: initial;
+}

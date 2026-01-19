@@ -1,23 +1,14 @@
 {% load static %}
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom border-body fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'core:core-index' %}"><img class="img-fluid mx-auto" src="{% static 'img/triqueta-trinity2.png' %}" alt="Datacentro" width="40"></a>
+    <a class="navbar-brand" href="{% url 'core:core-index' %}"><img class="img-fluid mx-auto" src="{% static 'img/triqueta-trinity2.png' %}" alt="GPG" width="40"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-end mt-4 me-3" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        {% comment %} <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li> {% endcomment %}
+    <div class="collapse navbar-collapse mt-2 me-3" id="navbarNavDropdown">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Configuración
@@ -63,19 +54,14 @@
             <li><a class="dropdown-item fs-7" href="{% url 'crm:ficha-index' %}">Ficha de Tercero</a></li>
           </ul>
         </li>
-        {% if request.user.is_authenticated %}
-        <div class="text-end">
-          <a href="{% url 'core:core-index' %}"><button type="button" class="btn-sm btn-outline-primary">Salir</button></a>
-        </div>
-      {% endif %}
-
       </ul>
-     
-      
-
+     {% if request.user.is_authenticated %}
+        <div class="d-flex">
+        {% comment %} <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button> {% endcomment %}
+          <a href="{% url 'core:core-index' %}"><button type="button" class="btn btn-sm btn-outline-danger ms-auto">Salir</button></a>
+        </div>
+        {% endif %}
     </div>
   </div>
 </nav>
-
-
-

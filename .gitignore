@@ -163,4 +163,4 @@ cython_debug/
 .vscode
 
 # Archivo de datos de configuración
-secrets.json
+secret.json

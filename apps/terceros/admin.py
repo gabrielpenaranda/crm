@@ -5,7 +5,7 @@ from .models import TipoPersona, Tercero, Persona
 @admin.register(Tercero)
 class TerceroAdmin(admin.ModelAdmin):
     fields = ('nombre', 'nombre_juridico',
-        ('rif', 'nit'),
+        ('rif',),
         ('telefono', 'email', 'web'),
         ('ciudad'),
         'descripcion_actividad',

@@ -1,0 +1,153 @@
+{% extends 'layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+  {{ titulo }}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-10 offset-md-1">
+        <div class="card">
+          <div class="card-title bg-light">
+            <div class="row">
+              <div class="col-8 mb-1 mt-2 ms-4">
+                <h4 class="text-left">Tercero</h4>
+              </div>
+              <div class="col-2 mb-1 mt-2">
+                <a class="btn btn-primary btn-sm fs-7" href="{% url 'terceros:tercero-create' %}">Nuevo</a>
+              </div>
+            </div>
+            <div class="container">
+
+              <form method="GET" action="{% url 'terceros:tercero-index' %}">
+                
+                <div class="row">
+
+                  <input type="hidden" name="page" value="1">
+
+                  <div class="col-12 mb-2 mt-2">
+                    <input type="text" class="form-control fs-7" name="kword" id="kword" placeholder="Buscar..." value="{{ request.session.kword }}"/>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-4">
+                      <label for="orderby" class="form-label fs-7">
+                          Ordenar por: 
+                      </label>
+                      <select name="orderby" id="orderby" class="form-select fs-7">
+                        <option value="nombre" {% if request.session.orderby == 'nombre' %}selected{% endif %}>Tercero</option>
+                        <option value="tipo" {% if request.session.orderby == 'tipo' %}selected{% endif %}>Clasificacion</option>
+                        <option value="ciudad" {% if request.session.orderby == 'ciudad' %}selected{% endif %}>Ciudad</option>
+                      </select>
+                    </div>
+                    <div class="col-4">
+                      <label for="ascdesc" class="form-label fs-7">Orden:</label>
+                      <select name="ascdesc" id="ascdesc" class="form-select fs-7">
+                        <option value="asc" {% if request.session.ascdesc == 'asc' %}selected{% endif %}>Ascendente</option>
+                        <option value="desc" {% if request.session.ascdesc == 'desc' %}selected{% endif %}>Descendente</option>
+                      </select>
+                    </div>
+                    
+                    <div class="col-2">
+                      <label for="page_size" class="form-label fs-7">Por página:</label>
+                      <select name="page_size" id="page_size" class="form-select fs-7">P
+                        <option value="5" {% if request.session.page_size == 5 %}selected{% endif %}>5</option>
+                        <option value="10" {% if request.session.page_size == 10 %}selected{% endif %}>10</option>
+                        <option value="20" {% if request.session.page_size == 20 %}selected{% endif %}>20</option>
+                        <option value="50" {% if request.session.page_size == 50 %}selected{% endif %}>50</option>
+                      </select>
+                    </div>
+                   
+                    <div class="col-2  mt-4">
+                      <button type="submit" class="btn btn-secondary btn-sm fs-7">Buscar</button>
+                    </div>
+                  </div>
+                </div>
+                
+              </form>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-left fs-7">Nombre</th>
+                  <th scope="col" class="text-left fs-7">Clasificación</th>
+                  <th scope="col" class="text-left fs-7">Ciudad</th>
+                  <th scope="col" class="text-left fs-7">Estado</th>
+                  <th scope="col" class="text-left fs-7">País</th>
+                  <th scope="col" class="text-center fs-7">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if terceros %}
+                  {% for tercero in terceros %}
+                    <tr>
+                      <td class="fs-7">{{ tercero.nombre }}</td>
+                      <td class="fs-7">{{ tercero.get_tipo_display|upper }}</td>
+                      <td class="fs-7">{{ tercero.ciudad.ciudad }}</td>
+                      <td class="fs-7">{{ tercero.ciudad.estado.estado }}</td>
+                      <td class="fs-7">{{ tercero.ciudad.estado.pais.pais }}</td>
+                      <td class="text-center">
+                        <a class="btn btn-outline-primary btn-sm fs-7" href="{% url 'terceros:tercero-edit' tercero.id %}"><i class="fas fa-edit"></i></a> 
+                        <a class="btn btn-outline-danger btn-sm confirmation fs-7" onclick="" href="{% url 'terceros:tercero-delete' tercero.id %}"><i class="fas fa-trash"></i></a>
+                        {% comment %} <a class="btn btn-outline-success btn-sm fs-7" href="{% url 'terceros:tercero-edit' tercero.id %}"><i class="fas fa-eye"></i></a> {% endcomment %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-footer">
+            <nav aria-label="Page navigation example">
+              {% if is_paginated %}
+                <ul class="pagination mb-0">
+                  {% if page_obj.has_previous %}
+                    <li class="page-item fs-7">
+                      <a class="page-link" href="?page={{ page_obj.previous_page_number }}"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    {% comment %}
+                  {% else %}
+                    <li class="page-item">
+                      <span>&laquo;</span>
+                    </li> {% endcomment %}
+                  {% endif %}
+                  {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                      <li class="page-item fs-7">
+                        <span class="page-link text-danger">{{ i }} <span class="sr-only"></span></span>
+                      </li>
+                    {% else %}
+                      <li class="page-item fs-7">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                  {% if page_obj.has_next %}
+                    <li class="page-item fs-7">
+                      <a class="page-link" href="?page={{ page_obj.next_page_number }}"><span aria-hidden="true">&raquo;</span></a>
+                    </li>
+                    {% comment %}
+                  {% else %}
+                    <li class="page-item">
+                      <span>&raquo;</span>
+                    </li> {% endcomment %}
+                  {% endif %}
+
+                </ul>
+              {% endif %}
+            </nav>
+          </div>
+        </div>
+        {% comment %}
+      </div>
+    </div>
+    {% endcomment %}
+  </div>
+{% endblock %}

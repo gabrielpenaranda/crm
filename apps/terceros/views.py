@@ -26,8 +26,6 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 
 
-
-
 # TIPO DE PERSONA
 class TipoPersonaIndex(ListView):
     template_name = 'terceros/tipopersona/tipopersona_index.html'

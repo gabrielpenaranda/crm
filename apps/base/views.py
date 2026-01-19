@@ -1,4 +1,8 @@
+from django.http import JsonResponse
+from django.db.models import ProtectedError
 from django.shortcuts import render, redirect
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from .models import (
     Pais, Estado, Ciudad,
     TipoEmpresa,
@@ -20,8 +24,14 @@ from django.urls import reverse_lazy
 class CiudadIndex(ListView):
     template_name = 'base/ciudad/ciudad_index.html'
     model = Ciudad
-    paginate_by = 7
+    # paginate_by = 7
     context_object_name = 'ciudades'
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateView, self).get_context_data(**kwargs)
+        context['titulo'] = 'Ciudad|Lista'
+        context['titulo_pagina'] = 'Lista de Ciudades'
+        return context
 
 
 class CiudadCreate(CreateView):
@@ -88,9 +98,22 @@ def ciudad_delete(request, id):
 class EstadoIndex(ListView):
     template_name = 'base/estado/estado_index.html'
     model = Estado
-    paginate_by = 7
+    # paginate_by = 7
     context_object_name = 'estados'
 
+    def get_queryset(self):
+        return self.model.objects.select_related('pais').all()
+
+    def get(self, request, *args, **kwargs):
+        lista_estados = []
+        for estado in self.get_queryset():
+            data_estado = {}
+            data_estado['id'] = estado.id
+            data_estado['estado'] = estado.estado
+            data_estado['pais'] = estado.pais.pais
+            lista_estados.append(data_estado)
+        print(lista_estados)
+        return render(request, self.template_name)
 
 class EstadoCreate(CreateView):
     model = Estado
@@ -156,37 +179,111 @@ def estado_delete(request, id):
 class PaisIndex(ListView):
     template_name = 'base/pais/pais_index.html'
     model = Pais
-    paginate_by = 7
     context_object_name = 'paises'
 
+    def get_context_data(self, **kwargs):
+        context = super(ListView, self).get_context_data(**kwargs)
+        context['titulo'] = 'País | Listado'
+        context['titulo_pagina'] = 'Listado de Países'
+        return context
+    
+    """ def get_queryset(self):       
+        if not self.request.session.get('pais_index_page_size'):
+            self.request.session['pais_index_page_size'] = 10
 
-class PaisCreate(CreateView):
+        if not self.request.session.get('pais_index_kword'):
+            self.request.session['pais_index_kword'] = ''
+        
+        if not self.request.session.get('pais_index_ascdesc'):
+            self.request.session['pais_index_ascdesc'] = 'asc'
+
+        if not self.request.session.get('pais_index_orderby'):
+            self.request.session['pais_index_orderby'] = 'pais'
+
+        if self.request.method == 'GET' and 'pais_index_kword' in self.request.GET:
+            self.request.session['pais_index_kword'] = self.request.GET.get('pais_index_kword').lower()
+        
+        if self.request.method == 'GET' and 'pais_index_page_size' in self.request.GET:
+            self.request.session['pais_index_page_size'] = int(self.request.GET['pais_index_page_size'])
+
+        if self.request.method == 'GET' and 'pais_index_orderby' in self.request.GET:
+            self.request.session['pais_index_orderby'] = self.request.GET['pais_index_orderby']
+
+        if self.request.method == 'GET' and 'pais_index_ascdesc' in self.request.GET:
+            self.request.session['pais_index_ascdesc'] = self.request.GET['pais_index_ascdesc']
+
+
+        palabra_clave = self.request.session['pais_index_kword']
+        orderby = self.request.session['pais_index_orderby'].lower()
+        ascdesc = self.request.session['pais_index_ascdesc'].lower()
+        page_size = self.request.session['pais_index_page_size']
+
+        print(palabra_clave)
+        print(orderby)
+        print(ascdesc)
+
+        self.paginate_by = page_size
+        
+        if (palabra_clave):
+            terceros = Pais.objects.buscar_pais(palabra_clave, orderby, ascdesc)
+        else:
+            terceros = Pais.objects.todos_pais(orderby, ascdesc)
+                           
+        return terceros """
+    
+class PaisCreate(SuccessMessageMixin, CreateView):
     model = Pais
     template_name = 'base/pais/pais_create.html'
     form_class = PaisForm
     success_url = reverse_lazy('base:pais-index')
+    success_message = 'País agregado exitosamente'
 
     def get_context_data(self, **kwargs):
         context = super(CreateView, self).get_context_data(**kwargs)
-        context['titulo'] = 'País|Agregar'
+        context['titulo'] = 'País | Agregar'
         context['titulo_pagina'] = 'Agregar País'
         return context
 
 
-class PaisEdit(UpdateView):
+class PaisEdit(SuccessMessageMixin, UpdateView):
     model = Pais
     template_name = 'base/pais/pais_create.html'
     form_class = PaisForm
     success_url = reverse_lazy('base:pais-index')
+    success_message = 'País editado exitosamente'
 
     def get_context_data(self, **kwargs):
         context = super(UpdateView, self).get_context_data(**kwargs)
-        context['titulo'] = 'País|Editar'
+        context['titulo'] = 'País | Editar'
         context['titulo_pagina'] = 'Editar País'
         return context
 
 
-def pais_delete(request, id):
+class PaisDelete(DeleteView):
+    model = Pais
+    http_method_names = ['post']
+    success_url = reverse_lazy('base:pais-index')
+    # success_message = 'País eliminado exitosamente'
+
+    def post(self, request, *args, **kwargs):
+        print('culo')
+        try:
+            pais = self.get_object()
+            pais.delete()
+            messages.success(
+                self.request,
+                "País eliminado exitosamente"
+            )
+            # return JsonResponse({'success': True, 'message': 'País eliminado exitosamente!'})
+        except ProtectedError:
+            messages.warning(
+                self.request,
+                "No se puede eliminar el país porque tiene datos asociados"
+            )
+            
+        return redirect(self.success_url)
+
+""" def pais_delete(request, id):
     pais = Pais.objects.get(id=id)
     if request.method == 'GET':
         contexto = {
@@ -217,7 +314,7 @@ def pais_delete(request, id):
             'class_card': class_card,
             'class_title': class_title,
         }
-        return render(request, 'layouts/mensaje.html', contexto)
+        return render(request, 'layouts/mensaje.html', contexto) """
 
 
 # TIPO EMPRESA

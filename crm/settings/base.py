@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import json
 from django.core.exceptions import ImproperlyConfigured
+from django.contrib.messages import constants as messages
 
 # import pymysql
 
@@ -27,7 +28,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-with open("secrets.json") as f:
+with open("secret.json") as f:
     secret = json.loads(f.read())
 
 def get_secret(secret_name, secrets=secret):
@@ -50,6 +51,11 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    # django-allauth
+    'allauth',
+    'allauth.account',
+    # 'allauth.socialaccount',
 ]
 
 LOCAL_APPS = [
@@ -62,10 +68,36 @@ LOCAL_APPS = [
 
 THIRD_PARTY_APPS = [
     # utils
+    'jazzmin',
     'debug_toolbar',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS
+
+SITE_ID = 1
+
+JAZZMIN_SETTINGS = {
+    "site_title": "BitByte",
+    "site_header": "BitByte",
+    "site_brand": "BitByte",
+    "site_logo": "img/logo_bitbyte.png",
+    "site_logo_classes": "img-circle",
+    "login_logo": "img/logo_bitbyte_75.png",
+    "welcome_sign": "Bienvenido a BitByte",
+    "search_model": [ "terceros.Tercero" ],
+
+    # Tema del Dashboard
+    "theme": "darkly",
+    "dark_mode": False,
+    "dark_mode_theme": 'darkly',
+
+    # CSS
+    "custom_css": 'custom/styles.css',
+
+    # Configuracion de barra de busqueda
+    "show_ui_builder": True,
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,6 +108,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'crm.urls'
@@ -91,9 +124,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'crm.wsgi.application'
@@ -116,6 +155,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# AUTH_USER_MODEL = 'usuarios.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -131,7 +171,7 @@ USE_L10N = True
 USE_TZ = True
 
 LOGIN_REDIRECT_URL = 'sistema'
-LOGOUT_REDIRECT_URL = 'index'
+# LOGOUT_REDIRECT_URL = 'index'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -140,7 +180,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Redireccion de login y logout
 LOGIN_REDIRECT_URL = 'core:core-index'
-LOGOUT_REDIRECT_URL = 'core:core-index'
+# LOGOUT_REDIRECT_URL = 'core:core-index'
 
 INTERNAL_IPS = [
     #...
@@ -148,6 +188,7 @@ INTERNAL_IPS = [
     #...
 ]
 
+# DEBUG TOOLBAR
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.history.HistoryPanel',
     'debug_toolbar.panels.versions.VersionsPanel',
@@ -166,4 +207,13 @@ DEBUG_TOOLBAR_PANELS = [
 
 # SESION
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# MESSAGES
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
 

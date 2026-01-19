@@ -59,5 +59,82 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'base/pais/index.js' %}"></script>
+<script>
+    const dataTableOptions = {
+        columnDefs: [
+            { className: 'text-center', targets: [0,1,2] },
+            { orderable: false, targets: [2]},
+            { searchable: false, targets: [2] },
+        ],
+        // pageLength: 5,
+        destroy: true,
+        language: {
+            decimal: "",
+            emptyTable: "No hay registros",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            infoEmpty: "Mostrando 0 to 0 of 0 Entradas",
+            infoFiltered: "(Filtrado de _MAX_ total entradas)",
+            infoPostFix: "",
+            thousands: ",",
+            lengthMenu: "Mostrar _MENU_ Entradas",
+            loadingRecords: "Cargando...",
+            processing: "Procesando...",
+            search: "Buscar:",
+            zeroRecords: "Sin resultados encontrados",
+            paginate: {
+                first: "Primero",
+                last: "Ultimo",
+                next: "Siguiente",
+                previous: "Anterior"
+            }
+        }
+    };
+
+    $(document).ready(function() {
+        $('#paisesTable').DataTable(dataTableOptions);
+
+        // Manejador del botón de eliminación con SweetAlert2 y CSRF
+        /*$(document).on('click', '.btn-delete', function() {
+            var elementoId = $(this).data('id');
+            var row = $(this).closest('tr'); // Obtener la fila para eliminarla de la tabla
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminarlo!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `/pais/delete/${elementoId}`,
+                        type: 'POST',
+                        data: {
+                            'csrfmiddlewaretoken': '{{ csrf_token }}' // CSRF token aquí
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.success) {
+                                // Eliminar fila de la tabla
+                                // table.row(row).remove().draw();
+                                toastr.success(response.message);
+                                row.remove().draw();
+                                
+                            } else {
+                                toastr.error(response.message);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            toastr.error('Error al intentar eliminar el país.');
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
+        });*/
+    });
+</script>
 {% endblock %}
